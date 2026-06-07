@@ -248,7 +248,44 @@ function WorkCard({ project, onOpen }: { project: Project; onOpen: () => void })
   )
 }
 
+// メイン成果物を大きく見せる横長カード（PC では画像＋説明を左右に）
+function FeaturedWorkCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group block w-full overflow-hidden rounded-2xl border border-line bg-paper text-left shadow-sm transition hover:shadow-lg md:flex"
+    >
+      <div className="relative overflow-hidden md:w-3/5">
+        <img
+          src={project.images[0] ?? '/shots/placeholder.svg'}
+          alt={project.title}
+          onError={fallbackToPlaceholder}
+          className="aspect-video w-full object-cover transition duration-500 group-hover:scale-105 md:aspect-auto md:h-full"
+        />
+      </div>
+      <div className="flex flex-col justify-center p-6 md:w-2/5 md:p-8">
+        <h3 className="text-xl font-bold text-head">{project.title}</h3>
+        <p className="mt-1 text-sm text-muted">{project.subtitle}</p>
+        <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-ink">{project.description}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tech.map((t) => (
+            <span key={t} className="font-mono text-xs text-teal">
+              #{t}
+            </span>
+          ))}
+        </div>
+        <p className="mt-5 text-sm font-medium text-ink transition group-hover:text-teal">
+          詳しく見る →
+        </p>
+      </div>
+    </button>
+  )
+}
+
 function Works({ onOpen }: { onOpen: (p: Project) => void }) {
+  const featured = projects.filter((p) => p.featured)
+  const rest = projects.filter((p) => !p.featured)
   return (
     <section id="works" className="dotted bg-mist">
       <div className="mx-auto max-w-5xl px-4 py-20">
@@ -258,12 +295,19 @@ function Works({ onOpen }: { onOpen: (p: Project) => void }) {
             カードをクリックすると、説明とスクリーンショットが開きます。
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <Reveal key={p.title} delay={(i % 3) * 80}>
-              <WorkCard project={p} onOpen={() => onOpen(p)} />
+        <div className="mt-10 space-y-6">
+          {featured.map((p) => (
+            <Reveal key={p.title}>
+              <FeaturedWorkCard project={p} onOpen={() => onOpen(p)} />
             </Reveal>
           ))}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((p, i) => (
+              <Reveal key={p.title} delay={(i % 3) * 80}>
+                <WorkCard project={p} onOpen={() => onOpen(p)} />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

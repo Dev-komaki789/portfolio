@@ -91,6 +91,7 @@ export interface Project {
   tech: string[]
   liveUrl?: string
   repoUrl?: string
+  featured?: boolean // true にすると Works の先頭で横長の大きいカードになります
   accent: string // カードのアクセント色（マーカー風ハイライト）
   // 作品モーダルに表示するキャプチャ画像のパス。
   // public/shots/ にファイルを置くだけで表示されます（例: public/shots/wms-1.png）。
@@ -113,6 +114,7 @@ export const projects: Project[] = [
     tech: ['Django', 'DRF', 'PostgreSQL', 'AWS', 'nginx'],
     liveUrl: 'https://komaki-wms.com',
     repoUrl: 'https://github.com/Dev-komaki789/wms',
+    featured: true,
     accent: 'from-indigo-500 to-blue-600',
     images: ['/shots/wms-2.png', '/shots/wms-1.png', '/shots/wms-3.png', '/shots/wms-4.png'],
   },
