@@ -4,6 +4,8 @@ import {
   projects,
   skillTiers,
   skillIcons,
+  interests,
+  interestsNote,
   aboutSite,
   aboutMe,
   type Project,
@@ -69,6 +71,7 @@ function Header() {
     ['About', '#about'],
     ['Works', '#works'],
     ['Skills', '#skills'],
+    ['Interests', '#interests'],
     ['Contact', '#contact'],
   ]
   return (
@@ -394,6 +397,37 @@ function Skills() {
   )
 }
 
+function Interests() {
+  return (
+    <section id="interests" className="dotted bg-mist">
+      <div className="mx-auto max-w-3xl px-4 py-20">
+        <Reveal>
+          <SectionTitle en="Interests" jp="その他の活動・趣味" />
+          <p className="mx-auto mt-6 max-w-xl text-center text-ink">{interestsNote}</p>
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {interests.map((it, i) => (
+            <Reveal key={it.name} delay={i * 100}>
+              <div className="flex h-full items-center gap-4 rounded-xl border border-line bg-paper p-5 shadow-sm">
+                <img
+                  src={`${DEVICON_BASE}${it.icon}.svg`}
+                  alt=""
+                  loading="lazy"
+                  className="h-10 w-10 shrink-0 object-contain"
+                />
+                <div>
+                  <p className="font-bold text-head">{it.name}</p>
+                  <p className="mt-0.5 text-sm text-muted">{it.detail}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function Contact() {
   return (
     <section id="contact" className="bg-paper">
@@ -549,6 +583,29 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   )
 }
 
+// スクロールすると右下に出る「ページの先頭へ戻る」ボタン
+function BackToTop() {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 500)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      aria-label="ページの先頭へ戻る"
+      className={`fixed right-6 bottom-6 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-teal text-white shadow-lg transition hover:bg-teal-dark ${
+        show ? 'opacity-100' : 'pointer-events-none opacity-0'
+      }`}
+    >
+      <span className="text-lg leading-none">↑</span>
+    </button>
+  )
+}
+
 function App() {
   const [openProject, setOpenProject] = useState<Project | null>(null)
 
@@ -561,12 +618,14 @@ function App() {
         <AboutMe />
         <Works onOpen={setOpenProject} />
         <Skills />
+        <Interests />
         <Contact />
       </main>
       <footer className="bg-teal py-12 text-center text-white">
         <p className="text-xl font-bold tracking-wide">Thank you for coming!</p>
         <p className="mt-3 text-sm text-white/80">© 2026 {profile.name}</p>
       </footer>
+      <BackToTop />
       {openProject && <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />}
     </div>
   )

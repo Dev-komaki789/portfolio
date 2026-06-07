@@ -83,6 +83,22 @@ export const skillIcons: Record<string, string> = {
   Docker: 'docker/docker-original',
 }
 
+// ===== Interests（その他の活動・趣味） =====
+// icon は Devicon のパス（skillIcons と同じ書式）。
+export const interestsNote =
+  '興味を持ったことは、手を動かして形にするのが好きです。仕事や Web 開発とは別に、3D 制作やゲーム開発にも取り組んでいます。'
+
+export interface Interest {
+  name: string
+  detail: string
+  icon: string
+}
+
+export const interests: Interest[] = [
+  { name: 'Blender', detail: '3D モデリング', icon: 'blender/blender-original' },
+  { name: 'Unity', detail: 'ゲーム開発（C#）', icon: 'unity/unity-original' },
+]
+
 export interface Project {
   title: string
   subtitle: string
