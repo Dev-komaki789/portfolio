@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="スクリーンショット準備中">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#38bdf8" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0c1322" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" fill="#15203a"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect width="800" height="500" fill="url(#glow)"/>
+  <g transform="translate(400 215)" fill="none" stroke="#38bdf8" stroke-opacity="0.85" stroke-width="4">
+    <rect x="-58" y="-44" width="116" height="88" rx="10"/>
+    <circle cx="0" cy="2" r="22"/>
+    <rect x="24" y="-58" width="34" height="20" rx="6" fill="#38bdf8" fill-opacity="0.5" stroke="none"/>
+  </g>
+  <text x="400" y="320" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="22" letter-spacing="3" fill="#38bdf8" fill-opacity="0.85">NO IMAGE YET</text>
+  <text x="400" y="356" text-anchor="middle" font-family="'Inter','Noto Sans JP',sans-serif" font-size="17" fill="#aab6cc" fill-opacity="0.6">public/shots/ に画像を置くと表示されます</text>
+</svg>
