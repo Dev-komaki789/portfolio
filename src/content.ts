@@ -64,6 +64,25 @@ export const skillTiers: SkillTier[] = [
   },
 ]
 
+// スキル名 → アイコンの対応表。
+// 値は Devicon(https://devicon.dev) の「フォルダ名/ファイル名」。CDN から自動で読み込みます。
+// 対応表に無いスキルはアイコンなし（テキストのみ）で表示されます。
+// 'db' は公式ロゴが無い SQL 用の内蔵データベースアイコンです。
+export const skillIcons: Record<string, string> = {
+  SQL: 'db',
+  Python: 'python/python-original',
+  Django: 'django/django-plain',
+  'HTML / CSS': 'html5/html5-original',
+  JavaScript: 'javascript/javascript-original',
+  'AWS (EC2 / RDS)': 'amazonwebservices/amazonwebservices-original-wordmark',
+  nginx: 'nginx/nginx-original',
+  'Git / GitHub': 'git/git-original',
+  React: 'react/react-original',
+  TypeScript: 'typescript/typescript-original',
+  'Tailwind CSS': 'tailwindcss/tailwindcss-original',
+  Docker: 'docker/docker-original',
+}
+
 export interface Project {
   title: string
   subtitle: string
@@ -144,6 +163,6 @@ export const projects: Project[] = [
     liveUrl: 'https://dev-komaki789.github.io/simple-quiz-app/',
     repoUrl: 'https://github.com/Dev-komaki789/simple-quiz-app',
     accent: 'from-amber-500 to-orange-600',
-    images: ['/shots/quiz-1.png', '/shots/quiz-2.png'],
+    images: ['/shots/quiz-1.png', '/shots/quiz-2.png', '/shots/quiz-3.png'],
   },
 ]

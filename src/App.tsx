@@ -3,6 +3,7 @@ import {
   profile,
   projects,
   skillTiers,
+  skillIcons,
   aboutSite,
   aboutMe,
   type Project,
@@ -276,6 +277,32 @@ const tierTagStyle = [
   'border border-line text-ink bg-paper',
 ]
 
+const DEVICON_BASE = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/'
+
+// スキルタグの先頭に出す技術ロゴ。'db' は SQL 用の内蔵アイコン、
+// それ以外は Devicon の CDN から読み込む。対応表に無ければ何も出さない。
+function SkillIcon({ name }: { name: string }) {
+  const slug = skillIcons[name]
+  if (!slug) return null
+  if (slug === 'db') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+        <ellipse cx="12" cy="5" rx="8" ry="3" />
+        <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
+        <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" />
+      </svg>
+    )
+  }
+  return (
+    <img
+      src={`${DEVICON_BASE}${slug}.svg`}
+      alt=""
+      loading="lazy"
+      className="h-4 w-auto max-w-6 object-contain"
+    />
+  )
+}
+
 function SkillTierRow({ tier, index }: { tier: SkillTier; index: number }) {
   const tagStyle = tierTagStyle[index] ?? tierTagStyle[tierTagStyle.length - 1]
   return (
@@ -293,8 +320,9 @@ function SkillTierRow({ tier, index }: { tier: SkillTier; index: number }) {
         {tier.items.map((name) => (
           <li
             key={name}
-            className={`rounded-full px-3.5 py-1.5 text-sm font-medium ${tagStyle}`}
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium ${tagStyle}`}
           >
+            <SkillIcon name={name} />
             {name}
           </li>
         ))}
