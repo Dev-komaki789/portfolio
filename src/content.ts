@@ -114,7 +114,7 @@ export const projects: Project[] = [
     liveUrl: 'https://komaki-wms.com',
     repoUrl: 'https://github.com/Dev-komaki789/wms',
     accent: 'from-indigo-500 to-blue-600',
-    images: ['/shots/wms-1.png', '/shots/wms-2.png', '/shots/wms-3.png', '/shots/wms-4.png'],
+    images: ['/shots/wms-2.png', '/shots/wms-1.png', '/shots/wms-3.png', '/shots/wms-4.png'],
   },
   {
     title: 'EC サイト（WMS 連携）',
