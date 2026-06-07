@@ -92,10 +92,26 @@ export interface Interest {
   name: string
   detail: string
   icon: string
+  description?: string
+  // 画像があるカードはクリックでギャラリー（モーダル）が開きます。
+  images?: string[]
 }
 
 export const interests: Interest[] = [
-  { name: 'Blender', detail: '3D モデリング', icon: 'blender/blender-original' },
+  {
+    name: 'Blender',
+    detail: '3D モデリング',
+    icon: 'blender/blender-original',
+    description:
+      '趣味で 3D モデリングに取り組んでいます。モデリングから質感（マテリアル）・ライティング・レンダリングまでを学びながら、いくつか作品を制作しました。',
+    images: [
+      '/shots/blender-1.png',
+      '/shots/blender-2.png',
+      '/shots/blender-3.png',
+      '/shots/blender-4.png',
+      '/shots/blender-5.png',
+    ],
+  },
   { name: 'Unity', detail: 'ゲーム開発（C#）', icon: 'unity/unity-original' },
 ]
 

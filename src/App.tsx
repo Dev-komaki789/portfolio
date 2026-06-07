@@ -10,6 +10,7 @@ import {
   aboutMe,
   type Project,
   type SkillTier,
+  type Interest,
 } from './content'
 
 // 画像が無いときは「準備中」プレースホルダに差し替える
@@ -397,7 +398,45 @@ function Skills() {
   )
 }
 
-function Interests() {
+function InterestCard({ interest, onOpen }: { interest: Interest; onOpen: () => void }) {
+  const hasImages = (interest.images?.length ?? 0) > 0
+  const inner = (
+    <>
+      <img
+        src={`${DEVICON_BASE}${interest.icon}.svg`}
+        alt=""
+        loading="lazy"
+        className="h-10 w-10 shrink-0 object-contain"
+      />
+      <div className="min-w-0">
+        <p className="font-bold text-head">{interest.name}</p>
+        <p className="mt-0.5 text-sm text-muted">{interest.detail}</p>
+        {hasImages && (
+          <p className="mt-1 text-sm font-medium text-teal">作品を見る →</p>
+        )}
+      </div>
+    </>
+  )
+  // 画像があるカードだけクリックでギャラリーを開く
+  if (hasImages) {
+    return (
+      <button
+        type="button"
+        onClick={onOpen}
+        className="flex h-full w-full items-center gap-4 rounded-xl border border-line bg-paper p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-teal/60 hover:shadow-lg"
+      >
+        {inner}
+      </button>
+    )
+  }
+  return (
+    <div className="flex h-full items-center gap-4 rounded-xl border border-line bg-paper p-5 shadow-sm">
+      {inner}
+    </div>
+  )
+}
+
+function Interests({ onOpen }: { onOpen: (i: Interest) => void }) {
   return (
     <section id="interests" className="dotted bg-mist">
       <div className="mx-auto max-w-3xl px-4 py-20">
@@ -408,23 +447,92 @@ function Interests() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {interests.map((it, i) => (
             <Reveal key={it.name} delay={i * 100}>
-              <div className="flex h-full items-center gap-4 rounded-xl border border-line bg-paper p-5 shadow-sm">
-                <img
-                  src={`${DEVICON_BASE}${it.icon}.svg`}
-                  alt=""
-                  loading="lazy"
-                  className="h-10 w-10 shrink-0 object-contain"
-                />
-                <div>
-                  <p className="font-bold text-head">{it.name}</p>
-                  <p className="mt-0.5 text-sm text-muted">{it.detail}</p>
-                </div>
-              </div>
+              <InterestCard interest={it} onOpen={() => onOpen(it)} />
             </Reveal>
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+// 趣味（Blender 等）の画像ギャラリーモーダル
+function InterestModal({ interest, onClose }: { interest: Interest; onClose: () => void }) {
+  const [current, setCurrent] = useState(0)
+  const images = interest.images ?? []
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
+
+  return (
+    <div
+      className="animate-fade fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="animate-pop relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-line bg-paper shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="閉じる"
+          className="absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-line bg-paper/90 text-ink backdrop-blur transition hover:border-teal hover:text-teal"
+        >
+          ✕
+        </button>
+
+        <div className="p-5 sm:p-7">
+          <p className="label-mono text-xs text-teal">Interests</p>
+          <h3 className="mt-2 text-2xl font-bold text-head">{interest.name}</h3>
+          <p className="mt-1 text-sm text-muted">{interest.detail}</p>
+
+          {images.length > 1 && (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {images.map((src, i) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setCurrent(i)}
+                  className={`h-14 w-20 overflow-hidden rounded-md border-2 transition ${
+                    i === current ? 'border-teal' : 'border-line opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img
+                    src={src}
+                    alt={`${interest.name} の作品 ${i + 1}`}
+                    onError={fallbackToPlaceholder}
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+
+          {images.length > 0 && (
+            <div className="mt-3 overflow-hidden rounded-xl border border-line bg-mist">
+              <img
+                src={images[current]}
+                alt={`${interest.name} の作品 ${current + 1}`}
+                onError={fallbackToPlaceholder}
+                className="aspect-video w-full object-contain"
+              />
+            </div>
+          )}
+
+          {interest.description && <p className="mt-6 text-ink">{interest.description}</p>}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -608,6 +716,7 @@ function BackToTop() {
 
 function App() {
   const [openProject, setOpenProject] = useState<Project | null>(null)
+  const [openInterest, setOpenInterest] = useState<Interest | null>(null)
 
   return (
     <div>
@@ -618,7 +727,7 @@ function App() {
         <AboutMe />
         <Works onOpen={setOpenProject} />
         <Skills />
-        <Interests />
+        <Interests onOpen={setOpenInterest} />
         <Contact />
       </main>
       <footer className="bg-teal py-12 text-center text-white">
@@ -627,6 +736,9 @@ function App() {
       </footer>
       <BackToTop />
       {openProject && <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />}
+      {openInterest && (
+        <InterestModal interest={openInterest} onClose={() => setOpenInterest(null)} />
+      )}
     </div>
   )
 }
