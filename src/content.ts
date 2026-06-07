@@ -2,11 +2,11 @@
 
 export const profile = {
   // ↓↓↓ ここを自分の情報に書き換えてください ↓↓↓
-  name: 'あなたの名前',
+  name: '小牧 慎太郎',
   tagline: '業務システム（WMS）を作るエンジニアを目指しています',
   bio: 'Web アプリ開発を学び、倉庫管理システム(WMS)と、それに連携する EC サイトを設計・開発し、AWS に本番公開しました。現場で使われる業務システムに興味があり、要件の理解から設計・実装・運用までを一気通貫で作れることを目指しています。',
   // 連絡先・リンク
-  email: 'your-email@example.com',
+  email: 'shintarokomaki592@gmail.com',
   github: 'https://github.com/Dev-komaki789',
 }
 
@@ -59,5 +59,35 @@ export const projects: Project[] = [
     liveUrl: 'https://ec.komaki-wms.com',
     repoUrl: 'https://github.com/Dev-komaki789/ec',
     accent: 'from-emerald-500 to-teal-600',
+  },
+  {
+    title: 'サイバーパンク風メモ帳',
+    subtitle: 'フロントエンド学習作品（HTML / CSS / JavaScript）',
+    description:
+      'サイバーパンク風の UI にこだわったメモ帳アプリ。入力時のタイピング音や、ローカルストレージへの保存・読み込みを実装し、ブラウザだけで動く仕組みを学びました。',
+    highlights: [
+      'localStorage への保存・呼び出しでブラウザを閉じても内容が残る',
+      'キー入力に合わせてタイピング音を再生（Audio API）',
+      'CSS でネオン調のサイバーパンク UI を作り込み',
+    ],
+    tech: ['HTML', 'CSS', 'JavaScript', 'localStorage'],
+    liveUrl: 'https://dev-komaki789.github.io/Cyberpunk-Notepad/',
+    repoUrl: 'https://github.com/Dev-komaki789/Cyberpunk-Notepad',
+    accent: 'from-fuchsia-500 to-cyan-500',
+  },
+  {
+    title: '4択クイズアプリ',
+    subtitle: 'フロントエンド学習作品（HTML / CSS / JavaScript）',
+    description:
+      '制限時間つきの4択クイズアプリ。クイズの問題は JSON で管理し、カテゴリごとに出題できるようにしました。データと画面ロジックを分けて扱う考え方を学びました。',
+    highlights: [
+      'クイズデータを JSON で外部管理し、追加・編集しやすい構成に',
+      'カテゴリ分けで出題ジャンルを切り替え',
+      '制限時間つきで回答するゲーム性のある UI',
+    ],
+    tech: ['HTML', 'CSS', 'JavaScript', 'JSON'],
+    liveUrl: 'https://dev-komaki789.github.io/simple-quiz-app/',
+    repoUrl: 'https://github.com/Dev-komaki789/simple-quiz-app',
+    accent: 'from-amber-500 to-orange-600',
   },
 ]
