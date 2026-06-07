@@ -4,7 +4,7 @@ export const profile = {
   // ↓↓↓ ここを自分の情報に書き換えてください ↓↓↓
   name: '小牧 慎太郎',
   // ヒーロー（最上部）に大きく出るサイト名とサブタイトル
-  siteName: 'Komaki Lab',
+  siteName: 'Shintaro Komaki',
   siteSub: 'WMS / Engineering Portfolio',
   tagline: '業務システム（WMS）を作るエンジニアを目指しています',
   bio: 'Web アプリ開発を学び、倉庫管理システム(WMS)と、それに連携する EC サイトを設計・開発し、AWS に本番公開しました。現場で使われる業務システムに興味があり、要件の理解から設計・実装・運用までを一気通貫で作れることを目指しています。',
