@@ -28,46 +28,39 @@ export const aboutMe = {
   ],
 }
 
-// ===== スキル（レーダーチャート） =====
-// value は 1〜5 の習熟度の目安。axes は 5〜6 個が見栄えが良いです。
-export interface SkillChart {
-  title: string
-  axes: { label: string; value: number }[]
+// ===== スキル（習熟度を3段階で分類） =====
+// label は段階名、note は補足（任意）、items はその段階のスキル名。
+// 上から「得意な順」に並べると見やすいです。
+export interface SkillTier {
+  label: string
+  note?: string
+  items: string[]
 }
 
-export const skillCharts: SkillChart[] = [
+export const skillTiers: SkillTier[] = [
   {
-    title: 'バックエンド',
-    axes: [
-      { label: 'Python', value: 4 },
-      { label: 'Django', value: 4 },
-      { label: 'DRF', value: 4 },
-      { label: 'API 設計', value: 3 },
-      { label: 'PostgreSQL', value: 3 },
-      { label: '認証', value: 3 },
+    label: '実務で使える',
+    note: '業務で 5 年半使用した技術',
+    items: ['SQL'],
+  },
+  {
+    label: '構築できる',
+    note: '個人開発で一通り実装・本番公開した',
+    items: [
+      'Python',
+      'Django',
+      'Django REST Framework',
+      'HTML / CSS',
+      'JavaScript',
+      'AWS (EC2 / RDS)',
+      'nginx',
+      'gunicorn',
     ],
   },
   {
-    title: 'フロントエンド',
-    axes: [
-      { label: 'HTML/CSS', value: 4 },
-      { label: 'JavaScript', value: 4 },
-      { label: 'TypeScript', value: 3 },
-      { label: 'React', value: 3 },
-      { label: 'Tailwind', value: 3 },
-      { label: 'UI 設計', value: 3 },
-    ],
-  },
-  {
-    title: 'インフラ / ツール',
-    axes: [
-      { label: 'AWS', value: 3 },
-      { label: 'nginx', value: 3 },
-      { label: 'gunicorn', value: 3 },
-      { label: 'Docker', value: 3 },
-      { label: 'Git', value: 4 },
-      { label: 'Linux', value: 3 },
-    ],
+    label: '学習中',
+    note: '勉強しながら使っている',
+    items: ['Git / GitHub', 'React', 'TypeScript', 'Tailwind CSS', 'Docker'],
   },
 ]
 

@@ -2,11 +2,11 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import {
   profile,
   projects,
-  skillCharts,
+  skillTiers,
   aboutSite,
   aboutMe,
   type Project,
-  type SkillChart,
+  type SkillTier,
 } from './content'
 
 // 画像が無いときは「準備中」プレースホルダに差し替える
@@ -269,91 +269,51 @@ function Works({ onOpen }: { onOpen: (p: Project) => void }) {
   )
 }
 
-// ===== レーダーチャート（依存ライブラリなしの SVG 自作） =====
-function RadarChart({ chart, max = 5 }: { chart: SkillChart; max?: number }) {
-  const size = 220
-  const cx = size / 2
-  const cy = size / 2
-  const r = size / 2 - 34 // ラベルのぶん内側に
-  const n = chart.axes.length
-  const rings = [0.25, 0.5, 0.75, 1]
+// 段階ごとのタグの見た目（上の段階ほど強調）
+const tierTagStyle = [
+  'bg-teal text-white',
+  'border border-teal text-teal-dark bg-teal-soft',
+  'border border-line text-ink bg-paper',
+]
 
-  // i 番目の軸の角度（真上を起点に時計回り）と、半径 rad の座標
-  const point = (i: number, rad: number) => {
-    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / n
-    return [cx + rad * Math.cos(angle), cy + rad * Math.sin(angle)]
-  }
-
-  const ringPath = (scale: number) =>
-    chart.axes
-      .map((_, i) => {
-        const [x, y] = point(i, r * scale)
-        return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`
-      })
-      .join(' ') + ' Z'
-
-  const dataPath =
-    chart.axes
-      .map((a, i) => {
-        const [x, y] = point(i, r * (a.value / max))
-        return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`
-      })
-      .join(' ') + ' Z'
-
+function SkillTierRow({ tier, index }: { tier: SkillTier; index: number }) {
+  const tagStyle = tierTagStyle[index] ?? tierTagStyle[tierTagStyle.length - 1]
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[240px]" role="img"
-      aria-label={`${chart.title}のスキルレーダーチャート`}>
-      {/* グリッド（同心の多角形） */}
-      {rings.map((s) => (
-        <path key={s} d={ringPath(s)} fill="none" stroke="var(--color-line)" strokeWidth="1" />
-      ))}
-      {/* 中心から各頂点への軸線 */}
-      {chart.axes.map((_, i) => {
-        const [x, y] = point(i, r)
-        return (
-          <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="var(--color-line)" strokeWidth="1" />
-        )
-      })}
-      {/* データ */}
-      <path d={dataPath} fill="var(--color-teal-soft)" stroke="var(--color-teal)" strokeWidth="2" />
-      {chart.axes.map((a, i) => {
-        const [x, y] = point(i, r * (a.value / max))
-        return <circle key={i} cx={x} cy={y} r="2.5" fill="var(--color-teal-dark)" />
-      })}
-      {/* ラベル */}
-      {chart.axes.map((a, i) => {
-        const [x, y] = point(i, r + 16)
-        const anchor = x < cx - 2 ? 'end' : x > cx + 2 ? 'start' : 'middle'
-        return (
-          <text
-            key={i}
-            x={x}
-            y={y}
-            textAnchor={anchor}
-            dominantBaseline="middle"
-            fontSize="9.5"
-            fill="var(--color-muted)"
+    <div className="md:grid md:grid-cols-[10rem_1fr] md:gap-6">
+      {/* 段階名（左） */}
+      <div className="md:text-right">
+        <p className="flex items-center gap-2 font-bold text-head md:justify-end">
+          <span className="h-2 w-2 rounded-full bg-teal" />
+          {tier.label}
+        </p>
+        {tier.note && <p className="mt-1 text-xs text-muted">{tier.note}</p>}
+      </div>
+      {/* スキルのタグ（右） */}
+      <ul className="mt-3 flex flex-wrap gap-2 md:mt-0">
+        {tier.items.map((name) => (
+          <li
+            key={name}
+            className={`rounded-full px-3.5 py-1.5 text-sm font-medium ${tagStyle}`}
           >
-            {a.label}
-          </text>
-        )
-      })}
-    </svg>
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
 function Skills() {
   return (
     <section id="skills" className="bg-paper">
-      <div className="mx-auto max-w-5xl px-4 py-20">
+      <div className="mx-auto max-w-4xl px-4 py-20">
         <Reveal>
           <SectionTitle en="My skill set" jp="スキルセット" />
         </Reveal>
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
-          {skillCharts.map((c, i) => (
-            <Reveal key={c.title} delay={i * 100} className="flex flex-col items-center">
-              <RadarChart chart={c} />
-              <p className="mt-4 font-bold text-head">{c.title}</p>
+        <div className="mt-12 space-y-10">
+          {skillTiers.map((t, i) => (
+            <Reveal key={t.label} delay={i * 100}>
+              <SkillTierRow tier={t} index={i} />
             </Reveal>
           ))}
         </div>
