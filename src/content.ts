@@ -15,12 +15,12 @@ export const profile = {
 
 // 「About this site」セクションの本文
 export const aboutSite =
-  'このサイトは、私（小牧）がこれまでに作ってきた制作物と、学んできた技術をまとめたポートフォリオです。フロントエンドの基礎から始め、Python / Django でのバックエンド開発、AWS での本番運用まで、手を動かしながら学んだ過程を記録しています。React + Vite + Tailwind CSS で制作し、Vercel に公開しています。'
+  'このサイトは、私がこれまでに作ってきた制作物と、学んできた技術をまとめたポートフォリオです。フロントエンドの基礎から始め、Python / Django によるバックエンド開発、AWS での本番運用まで、実際に手を動かしながら学んできた過程を記録しています。'
 
 // 「About me」セクション。リンクは好きなだけ追加できます。
 export const aboutMe = {
   text:
-    '業務システムを作るエンジニアを目指して学習中です。倉庫管理システム(WMS)と、それに連携する EC サイトをひとりで設計・実装し、AWS に本番公開しました。「現場で実際に使われる仕組み」を、要件の理解から運用まで一気通貫で作れることを目標にしています。',
+    '大学卒業後、倉庫管理システム(WMS)を扱う会社で SQL プログラマーとして5年半勤務しました。その後は別の業種で経験を積みましたが、「もう一度、倉庫管理システムの開発に携わりたい」という思いが強くなり、現在は Web アプリ開発の職業訓練校に通いながら、自宅でも開発を続けて学習しています。\n\nこれまでに、倉庫管理システム(WMS)と、それに連携する EC サイトの2つを個人で開発し、AWS に本番公開しました。設計の判断は自分で行い、実装には生成 AI も活用しながら、要件の理解から設計・実装・運用までを一通り経験しています。「現場で実際に使われる仕組み」を一気通貫で作れるエンジニアを目指しています。',
   links: [
     { label: 'GitHub', href: 'https://github.com/Dev-komaki789' },
     { label: 'WMS（本番サイト）', href: 'https://komaki-wms.com' },
@@ -68,54 +68,6 @@ export const skillCharts: SkillChart[] = [
       { label: 'Git', value: 4 },
       { label: 'Linux', value: 3 },
     ],
-  },
-]
-
-// ===== Profile（タイムライン） =====
-// period は「2024」「STEP 1」など自由な見出し。image は public/shots/ に置いた画像パス。
-// 画像が無いときは自動で頭文字アイコンになります。
-export interface TimelineItem {
-  period: string
-  title: string
-  body: string
-  image?: string
-}
-
-export const timeline: TimelineItem[] = [
-  {
-    period: 'はじまり',
-    title: 'プログラミングを学び始める',
-    body: 'もの作りに興味を持ち、独学でプログラミングの学習を始めました。まずは手を動かして「動くもの」を作ることを目標にしました。',
-  },
-  {
-    period: 'STEP 1',
-    title: 'フロントエンドの基礎を身につける',
-    body: 'HTML / CSS / JavaScript を学び、ブラウザだけで動くアプリを制作。サイバーパンク風メモ帳や4択クイズアプリを作り、データと画面の分け方を学びました。',
-  },
-  {
-    period: 'STEP 2',
-    title: 'Python / Django を学び始める',
-    body: 'バックエンドに興味を持ち、Python と Django を学習。データベースを使った Web アプリの仕組みを、自分で説明できる範囲を増やしながら理解していきました。',
-  },
-  {
-    period: 'STEP 3',
-    title: '倉庫管理システム(WMS)を設計・開発',
-    body: '入荷・出荷・在庫・棚卸・マスタ管理を備えた業務系 Web アプリを開発。ハンディ端末でのバーコード運用や発注点アラートなど、現場で必要な機能を実装しました。',
-  },
-  {
-    period: 'STEP 4',
-    title: 'EC サイトを WMS と連携',
-    body: 'DRF で WMS を API 化し、消費者向け EC サイト(React + TypeScript)と連携。別 DB の制約を「マスタのコピー＋ID 参照」で解決する設計に挑戦しました。',
-  },
-  {
-    period: 'STEP 5',
-    title: 'AWS に本番公開',
-    body: 'EC2 / RDS / nginx / gunicorn で WMS と EC サイトを HTTPS 本番公開。ビルド時の OOM 対策など、運用面の課題にも対応しました。',
-  },
-  {
-    period: 'これから',
-    title: '業務システムエンジニアへ',
-    body: '要件の理解から設計・実装・運用までを一気通貫で担える、現場で頼られるエンジニアを目指して学習を続けています。',
   },
 ]
 

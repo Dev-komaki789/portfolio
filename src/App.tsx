@@ -3,12 +3,10 @@ import {
   profile,
   projects,
   skillCharts,
-  timeline,
   aboutSite,
   aboutMe,
   type Project,
   type SkillChart,
-  type TimelineItem,
 } from './content'
 
 // 画像が無いときは「準備中」プレースホルダに差し替える
@@ -70,7 +68,6 @@ function Header() {
     ['About', '#about'],
     ['Works', '#works'],
     ['Skills', '#skills'],
-    ['Profile', '#profile'],
     ['Contact', '#contact'],
   ]
   return (
@@ -167,7 +164,7 @@ function AboutMe() {
             <Avatar name={profile.name} size={88} />
             <div className="text-center sm:text-left">
               <p className="text-lg font-bold text-head">{profile.name}</p>
-              <p className="mt-3 leading-loose text-ink">{aboutMe.text}</p>
+              <p className="mt-3 leading-loose whitespace-pre-line text-ink">{aboutMe.text}</p>
               <ul className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm sm:justify-start">
                 {aboutMe.links.map((l) => (
                   <li key={l.href}>
@@ -365,52 +362,6 @@ function Skills() {
   )
 }
 
-function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
-  const left = index % 2 === 0
-  return (
-    <Reveal className="relative md:grid md:grid-cols-2 md:gap-10">
-      {/* 中央のノード（アバター） */}
-      <div className="absolute left-4 -translate-x-1/2 md:left-1/2">
-        <Avatar name={item.title} image={item.image} size={56} />
-      </div>
-
-      {/* カード本体（PC では左右交互） */}
-      <div
-        className={`ml-14 md:ml-0 ${
-          left ? 'md:col-start-1 md:pr-16 md:text-right' : 'md:col-start-2 md:pl-16'
-        }`}
-      >
-        <span className="label-mono text-xs text-teal">{item.period}</span>
-        <div className="mt-2 rounded-xl bg-brown p-5 text-white shadow-sm">
-          <h3 className="font-bold">{item.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-white/90">{item.body}</p>
-        </div>
-      </div>
-    </Reveal>
-  )
-}
-
-function Profile() {
-  return (
-    <section id="profile" className="dotted bg-mist">
-      <div className="mx-auto max-w-4xl px-4 py-20">
-        <Reveal>
-          <SectionTitle en="Profile" jp="これまでの歩み" />
-        </Reveal>
-        <div className="relative mt-14">
-          {/* 縦のライン */}
-          <span className="absolute top-0 bottom-0 left-4 w-px bg-line md:left-1/2" />
-          <div className="space-y-12">
-            {timeline.map((item, i) => (
-              <TimelineRow key={item.title} item={item} index={i} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Contact() {
   return (
     <section id="contact" className="bg-paper">
@@ -578,7 +529,6 @@ function App() {
         <AboutMe />
         <Works onOpen={setOpenProject} />
         <Skills />
-        <Profile />
         <Contact />
       </main>
       <footer className="bg-teal py-12 text-center text-white">
