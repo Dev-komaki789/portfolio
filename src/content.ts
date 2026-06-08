@@ -105,11 +105,11 @@ export const interests: Interest[] = [
     description:
       '趣味で 3D モデリングに取り組んでいます。モデリングから質感（マテリアル）・ライティング・レンダリングまでを学びながら、いくつか作品を制作しました。',
     images: [
-      '/shots/blender-1.png',
-      '/shots/blender-2.png',
-      '/shots/blender-3.png',
-      '/shots/blender-4.png',
-      '/shots/blender-5.png',
+      '/shots/blender-1.webp',
+      '/shots/blender-2.webp',
+      '/shots/blender-3.webp',
+      '/shots/blender-4.webp',
+      '/shots/blender-5.webp',
     ],
   },
   { name: 'Unity', detail: 'ゲーム開発（C#）', icon: 'unity/unity-original' },
@@ -132,7 +132,7 @@ export interface Project {
   featured?: boolean // true にすると Works の先頭で横長の大きいカードになります
   accent: string // カードのアクセント色（マーカー風ハイライト）
   // 作品モーダルに表示するキャプチャ画像のパス。
-  // public/shots/ にファイルを置くだけで表示されます（例: public/shots/wms-1.png）。
+  // public/shots/ にファイルを置くだけで表示されます（例: public/shots/wms-1.webp）。
   // まだ画像が無い場合は自動で「準備中」プレースホルダが表示されます。
   images: string[]
 }
@@ -161,7 +161,7 @@ export const projects: Project[] = [
     },
     featured: true,
     accent: 'from-indigo-500 to-blue-600',
-    images: ['/shots/wms-2.png', '/shots/wms-1.png', '/shots/wms-3.png', '/shots/wms-4.png'],
+    images: ['/shots/wms-2.webp', '/shots/wms-1.webp', '/shots/wms-3.webp', '/shots/wms-4.webp'],
   },
   {
     title: 'EC サイト（WMS 連携）',
@@ -182,7 +182,7 @@ export const projects: Project[] = [
       accounts: [{ label: '会員ユーザー', id: 'demo@gmail.com', password: 'demo-2026' }],
     },
     accent: 'from-emerald-500 to-teal-600',
-    images: ['/shots/ec-1.png', '/shots/ec-2.png', '/shots/ec-3.png'],
+    images: ['/shots/ec-1.webp', '/shots/ec-2.webp', '/shots/ec-3.webp'],
   },
   {
     title: 'サイバーパンク風メモ帳',
@@ -198,7 +198,7 @@ export const projects: Project[] = [
     liveUrl: 'https://dev-komaki789.github.io/Cyberpunk-Notepad/',
     repoUrl: 'https://github.com/Dev-komaki789/Cyberpunk-Notepad',
     accent: 'from-fuchsia-500 to-cyan-500',
-    images: ['/shots/notepad-1.png', '/shots/notepad-2.png'],
+    images: ['/shots/notepad-1.webp', '/shots/notepad-2.webp'],
   },
   {
     title: '4択クイズアプリ',
@@ -214,6 +214,6 @@ export const projects: Project[] = [
     liveUrl: 'https://dev-komaki789.github.io/simple-quiz-app/',
     repoUrl: 'https://github.com/Dev-komaki789/simple-quiz-app',
     accent: 'from-amber-500 to-orange-600',
-    images: ['/shots/quiz-1.png', '/shots/quiz-2.png', '/shots/quiz-3.png'],
+    images: ['/shots/quiz-1.webp', '/shots/quiz-2.webp', '/shots/quiz-3.webp'],
   },
 ]
