@@ -797,7 +797,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 // フッターのすぐ上に置く「先頭へ戻る」ボタン
 function BackToTop() {
   return (
-    <div className="flex justify-center bg-paper pb-14">
+    <div className="-mt-8 flex justify-center bg-paper pb-12">
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
