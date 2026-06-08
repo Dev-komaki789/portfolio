@@ -123,6 +123,12 @@ export interface Project {
   tech: string[]
   liveUrl?: string
   repoUrl?: string
+  // デモ用ログイン情報（設定するとモーダルに表示されます）。accounts は複数可。
+  // ※ ここに書いた内容は公開リポジトリに載るため、必ず「デモ専用」の捨てアカウントを使ってください。
+  demo?: {
+    note?: string
+    accounts: { label?: string; id: string; password: string }[]
+  }
   featured?: boolean // true にすると Works の先頭で横長の大きいカードになります
   accent: string // カードのアクセント色（マーカー風ハイライト）
   // 作品モーダルに表示するキャプチャ画像のパス。
@@ -146,6 +152,13 @@ export const projects: Project[] = [
     tech: ['Django', 'DRF', 'PostgreSQL', 'AWS', 'nginx'],
     liveUrl: 'https://komaki-wms.com',
     repoUrl: 'https://github.com/Dev-komaki789/wms',
+    demo: {
+      note: 'Admin 機能は制限しています。データは定期的にリセットされます。',
+      accounts: [
+        { label: 'PC ユーザー', id: 'demo', password: 'wms-demo-2026' },
+        { label: 'ハンディ・スマホ ユーザー', id: 'worker1', password: 'worker-wms-2026' },
+      ],
+    },
     featured: true,
     accent: 'from-indigo-500 to-blue-600',
     images: ['/shots/wms-2.png', '/shots/wms-1.png', '/shots/wms-3.png', '/shots/wms-4.png'],
@@ -164,6 +177,10 @@ export const projects: Project[] = [
     tech: ['Django', 'DRF', 'React', 'TypeScript', 'AWS'],
     liveUrl: 'https://ec.komaki-wms.com',
     repoUrl: 'https://github.com/Dev-komaki789/ec',
+    demo: {
+      note: 'デモ用の会員アカウントです。',
+      accounts: [{ label: '会員ユーザー', id: 'demo@gmail.com', password: 'demo-2026' }],
+    },
     accent: 'from-emerald-500 to-teal-600',
     images: ['/shots/ec-1.png', '/shots/ec-2.png', '/shots/ec-3.png'],
   },

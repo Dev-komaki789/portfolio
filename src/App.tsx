@@ -663,6 +663,26 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             ))}
           </div>
 
+          {project.demo && (
+            <div className="mt-6 rounded-xl border border-teal/40 bg-teal-soft p-4">
+              <p className="text-sm font-bold text-teal-dark">デモ用ログイン情報</p>
+              <div className="mt-3 space-y-3">
+                {project.demo.accounts.map((a) => (
+                  <div key={a.id}>
+                    {a.label && <p className="text-xs font-semibold text-ink">{a.label}</p>}
+                    <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 text-sm">
+                      <dt className="text-muted">ID</dt>
+                      <dd className="font-mono text-head">{a.id}</dd>
+                      <dt className="text-muted">PW</dt>
+                      <dd className="font-mono text-head">{a.password}</dd>
+                    </dl>
+                  </div>
+                ))}
+              </div>
+              {project.demo.note && <p className="mt-3 text-xs text-muted">※ {project.demo.note}</p>}
+            </div>
+          )}
+
           <div className="mt-7 flex flex-wrap gap-3">
             {project.liveUrl && (
               <a
