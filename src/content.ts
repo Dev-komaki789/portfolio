@@ -15,7 +15,7 @@ export const profile = {
 
 // 「About this site」セクションの本文
 export const aboutSite =
-  'このサイトは、私がこれまでに作ってきた制作物と、学んできた技術をまとめたポートフォリオです。フロントエンドの基礎から始め、Python / Django によるバックエンド開発、AWS での本番運用まで、実際に手を動かしながら学んできた過程を記録しています。'
+  'このサイトは、私がこれまでに作ってきた制作物と、学んできた技術をまとめたポートフォリオです。フロントエンドの基礎から始め、Python / Django によるバックエンド開発、\nAWS での本番運用まで、実際に手を動かしながら学んできた過程を記録しています。'
 
 // 「About me」セクション。リンクは好きなだけ追加できます。
 export const aboutMe = {
@@ -86,7 +86,7 @@ export const skillIcons: Record<string, string> = {
 // ===== Interests（その他の活動・趣味） =====
 // icon は Devicon のパス（skillIcons と同じ書式）。
 export const interestsNote =
-  '興味を持ったことは、手を動かして形にするのが好きです。仕事や Web 開発とは別に、3D 制作やゲーム開発にも取り組んでいます。'
+  '興味を持ったことは、手を動かして形にするのが好きです。\n仕事や Web 開発とは別に、3D 制作やゲーム開発にも取り組んでいます。'
 
 export interface Interest {
   name: string

@@ -150,7 +150,7 @@ function AboutSite() {
       <div className="mx-auto max-w-3xl px-4 py-20">
         <Reveal>
           <SectionTitle en="About this site" jp="このサイトについて" />
-          <p className="mt-8 text-center leading-loose text-ink">{aboutSite}</p>
+          <p className="mt-8 text-center leading-loose whitespace-pre-line text-ink">{aboutSite}</p>
         </Reveal>
       </div>
     </section>
@@ -442,7 +442,7 @@ function Interests({ onOpen }: { onOpen: (i: Interest) => void }) {
       <div className="mx-auto max-w-3xl px-4 py-20">
         <Reveal>
           <SectionTitle en="Interests" jp="その他の活動・趣味" />
-          <p className="mx-auto mt-6 max-w-xl text-center text-ink">{interestsNote}</p>
+          <p className="mx-auto mt-6 max-w-xl text-center whitespace-pre-line text-ink">{interestsNote}</p>
         </Reveal>
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {interests.map((it, i) => (
