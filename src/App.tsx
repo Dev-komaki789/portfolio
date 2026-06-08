@@ -136,7 +136,7 @@ function Hero() {
       <a
         href="#about"
         aria-label="下へスクロール"
-        className="absolute bottom-8 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 text-white/90 transition hover:bg-white/15"
+        className="absolute bottom-8 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border border-white/50 text-white/90 transition hover:bg-white/15"
       >
         <span className="animate-bob text-xl leading-none">⌄</span>
       </a>
@@ -783,11 +783,15 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   )
 }
 
-// スクロールすると右下に出る「ページの先頭へ戻る」ボタン
+// ページ最下部までスクロールすると、下部中央に出る「先頭へ戻る」ボタン
 function BackToTop() {
   const [show, setShow] = useState(false)
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 500)
+    const onScroll = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80
+      setShow(nearBottom)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
@@ -797,11 +801,11 @@ function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       aria-label="ページの先頭へ戻る"
-      className={`fixed right-6 bottom-6 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-teal text-white shadow-lg transition hover:bg-teal-dark ${
-        show ? 'opacity-100' : 'pointer-events-none opacity-0'
+      className={`fixed bottom-8 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-teal-dark shadow-lg ring-1 ring-line transition duration-300 ${
+        show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >
-      <span className="text-lg leading-none">↑</span>
+      <span className="leading-none">↑</span> ページの先頭へ
     </button>
   )
 }
