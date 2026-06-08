@@ -794,41 +794,30 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   )
 }
 
-// ページ最下部までスクロールすると、下部中央に出る「先頭へ戻る」ボタン
+// フッターのすぐ上に置く「先頭へ戻る」ボタン
 function BackToTop() {
-  const [show, setShow] = useState(false)
-  useEffect(() => {
-    const onScroll = () => {
-      const nearBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80
-      setShow(nearBottom)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
   return (
-    <button
-      type="button"
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      aria-label="ページの先頭へ戻る"
-      className={`fixed bottom-8 left-1/2 z-30 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full bg-white text-teal-dark shadow-lg ring-1 ring-line transition duration-300 ${
-        show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
-      }`}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        className="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
+    <div className="flex justify-center bg-paper pb-14">
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="ページの先頭へ戻る"
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-teal-dark shadow-md ring-1 ring-line transition hover:text-teal hover:shadow-lg"
       >
-        <path d="M6 15l6-6 6 6" />
-      </svg>
-    </button>
+        <svg
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 15l6-6 6 6" />
+        </svg>
+      </button>
+    </div>
   )
 }
 
@@ -848,11 +837,11 @@ function App() {
         <Interests onOpen={setOpenInterest} />
         <Contact />
       </main>
+      <BackToTop />
       <footer className="bg-teal py-12 text-center text-white">
         <p className="text-xl font-bold tracking-wide">Thank you for coming!</p>
         <p className="mt-3 text-sm text-white/80">© 2026 {profile.name}</p>
       </footer>
-      <BackToTop />
       {openProject && <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />}
       {openInterest && (
         <InterestModal interest={openInterest} onClose={() => setOpenInterest(null)} />
