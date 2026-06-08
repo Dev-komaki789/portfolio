@@ -457,13 +457,55 @@ function Interests({ onOpen }: { onOpen: (i: Interest) => void }) {
 }
 
 // 趣味（Blender 等）の画像ギャラリーモーダル
+// 画像を全画面で拡大表示するライトボックス（Esc 処理は呼び出し側のモーダルが担当）
+function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+  return (
+    <div
+      className="animate-fade fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4"
+      onClick={(e) => {
+        e.stopPropagation()
+        onClose()
+      }}
+    >
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          onClose()
+        }}
+        aria-label="閉じる"
+        className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition hover:bg-white/15"
+      >
+        ✕
+      </button>
+      <img
+        src={src}
+        alt={alt}
+        onError={fallbackToPlaceholder}
+        className="max-h-[95vh] max-w-[95vw] cursor-zoom-out object-contain"
+        onClick={(e) => {
+          e.stopPropagation()
+          onClose()
+        }}
+      />
+    </div>
+  )
+}
+
 function InterestModal({ interest, onClose }: { interest: Interest; onClose: () => void }) {
   const [current, setCurrent] = useState(0)
+  const [zoomed, setZoomed] = useState(false)
   const images = interest.images ?? []
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key !== 'Escape') return
+      // 拡大中はまず拡大だけ閉じる
+      setZoomed((z) => {
+        if (z) return false
+        onClose()
+        return z
+      })
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
@@ -519,19 +561,31 @@ function InterestModal({ interest, onClose }: { interest: Interest; onClose: () 
           )}
 
           {images.length > 0 && (
-            <div className="mt-3 overflow-hidden rounded-xl border border-line bg-mist">
+            <button
+              type="button"
+              onClick={() => setZoomed(true)}
+              aria-label="画像を拡大表示"
+              className="mt-3 block w-full cursor-zoom-in overflow-hidden rounded-xl border border-line bg-mist"
+            >
               <img
                 src={images[current]}
                 alt={`${interest.name} の作品 ${current + 1}`}
                 onError={fallbackToPlaceholder}
                 className="aspect-video w-full object-contain"
               />
-            </div>
+            </button>
           )}
 
           {interest.description && <p className="mt-6 text-ink">{interest.description}</p>}
         </div>
       </div>
+      {zoomed && images[current] && (
+        <Lightbox
+          src={images[current]}
+          alt={`${interest.name} の作品 ${current + 1}`}
+          onClose={() => setZoomed(false)}
+        />
+      )}
     </div>
   )
 }
@@ -569,11 +623,17 @@ function Contact() {
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [current, setCurrent] = useState(0)
+  const [zoomed, setZoomed] = useState(false)
 
-  // Esc で閉じる＋背面のスクロールを止める
+  // Esc で閉じる＋背面のスクロールを止める（拡大中はまず拡大だけ閉じる）
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key !== 'Escape') return
+      setZoomed((z) => {
+        if (z) return false
+        onClose()
+        return z
+      })
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
@@ -629,16 +689,21 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             </div>
           )}
 
-          {/* 下：選択中のキャプチャを大きく表示 */}
+          {/* 下：選択中のキャプチャを大きく表示（クリックで拡大） */}
           {project.images.length > 0 && (
-            <div className="mt-3 overflow-hidden rounded-xl border border-line bg-mist">
+            <button
+              type="button"
+              onClick={() => setZoomed(true)}
+              aria-label="画像を拡大表示"
+              className="mt-3 block w-full cursor-zoom-in overflow-hidden rounded-xl border border-line bg-mist"
+            >
               <img
                 src={project.images[current]}
                 alt={`${project.title} の画面 ${current + 1}`}
                 onError={fallbackToPlaceholder}
                 className="aspect-video w-full object-cover"
               />
-            </div>
+            </button>
           )}
 
           <p className="mt-6 text-ink">{project.description}</p>
@@ -707,6 +772,13 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           </div>
         </div>
       </div>
+      {zoomed && project.images[current] && (
+        <Lightbox
+          src={project.images[current]}
+          alt={`${project.title} の画面 ${current + 1}`}
+          onClose={() => setZoomed(false)}
+        />
+      )}
     </div>
   )
 }
