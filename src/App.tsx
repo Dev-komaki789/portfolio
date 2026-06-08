@@ -138,7 +138,18 @@ function Hero() {
         aria-label="下へスクロール"
         className="absolute bottom-8 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border border-white/50 text-white/90 transition hover:bg-white/15"
       >
-        <span className="animate-bob text-xl leading-none">⌄</span>
+        <svg
+          viewBox="0 0 24 24"
+          className="animate-bob h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
       </a>
     </section>
   )
@@ -801,11 +812,22 @@ function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       aria-label="ページの先頭へ戻る"
-      className={`fixed bottom-8 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-teal-dark shadow-lg ring-1 ring-line transition duration-300 ${
+      className={`fixed bottom-8 left-1/2 z-30 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full bg-white text-teal-dark shadow-lg ring-1 ring-line transition duration-300 ${
         show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >
-      <span className="leading-none">↑</span> ページの先頭へ
+      <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M6 15l6-6 6 6" />
+      </svg>
     </button>
   )
 }
