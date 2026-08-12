@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# 卒業制作の作業用ファイル（サイトには含めない）
+# 設計書はアプリ完成まで公開しない方針。モックアップ原本(PNG)は
+# public/shots/ に webp 変換したものだけを置く。
+/phone/
+/tablet/
+おぼえがき_設計書*.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

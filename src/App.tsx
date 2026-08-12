@@ -241,6 +241,11 @@ function WorkCard({ project, onOpen }: { project: Project; onOpen: () => void })
           onError={fallbackToPlaceholder}
           className="aspect-video w-full object-cover transition duration-500 group-hover:scale-105"
         />
+        {project.status && (
+          <span className="absolute top-3 left-3">
+            <StatusBadge label={project.status} />
+          </span>
+        )}
         <span className="absolute top-3 right-3 rounded-md bg-white/90 px-2 py-1 font-mono text-xs text-teal-dark shadow-sm">
           {project.images.length} shots
         </span>
@@ -295,6 +300,16 @@ function FeaturedWorkCard({ project, onOpen }: { project: Project; onOpen: () =>
         </p>
       </div>
     </button>
+  )
+}
+
+// 開発中の作品につけるバッジ（カード・モーダル共通）
+function StatusBadge({ label }: { label: string }) {
+  return (
+    <span className="flex items-center gap-1.5 rounded-full bg-teal px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+      {label}
+    </span>
   )
 }
 
@@ -673,7 +688,10 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
         </button>
 
         <div className="p-5 sm:p-7">
-          <p className="label-mono text-xs text-teal">Works</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="label-mono text-xs text-teal">Works</p>
+            {project.status && <StatusBadge label={project.status} />}
+          </div>
           <h3 className="mt-2 text-2xl font-bold text-head">{project.title}</h3>
           <p className="mt-1 text-sm text-muted">{project.subtitle}</p>
 
@@ -693,7 +711,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
                     src={src}
                     alt={`${project.title} の画面 ${i + 1}`}
                     onError={fallbackToPlaceholder}
-                    className="h-full w-full object-cover"
+                    className={`h-full w-full ${project.portraitImages ? 'bg-mist object-contain' : 'object-cover'}`}
                   />
                 </button>
               ))}
@@ -712,9 +730,16 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
                 src={project.images[current]}
                 alt={`${project.title} の画面 ${current + 1}`}
                 onError={fallbackToPlaceholder}
-                className="aspect-video w-full object-cover"
+                className={
+                  project.portraitImages
+                    ? 'mx-auto max-h-[60vh] w-auto object-contain'
+                    : 'aspect-video w-full object-cover'
+                }
               />
             </button>
+          )}
+          {project.imageNote && (
+            <p className="mt-2 text-xs text-muted">※ {project.imageNote}</p>
           )}
 
           <p className="mt-6 text-ink">{project.description}</p>
