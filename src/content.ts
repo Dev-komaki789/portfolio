@@ -247,12 +247,16 @@ export const projects: Project[] = [
       'スマホ / PC でレイアウトを出し分けるレスポンシブ対応',
     ],
     tech: ['React', 'Django', 'DRF', 'pandas', 'PostgreSQL', 'Render'],
-    liveUrl: 'https://tamemon-frontend.onrender.com',
+    // 無料プラン(Render)のスリープで初回表示に約1分かかるため、リンクは非表示にしています。
+    // 常時起動できる環境に移したら、下の行のコメントを外せば復活します。
+    // liveUrl: 'https://tamemon-frontend.onrender.com',
     repoUrl: 'https://github.com/Dev-komaki789/tamemon-app',
-    demo: {
-      note: '誰でも新規登録もできます。デモデータは変更・リセットされることがあります。無料サーバーのため初回表示に少し時間がかかります。',
-      accounts: [{ label: 'デモユーザー', id: 'tanaka', password: 'tamemon-demo-2026' }],
-    },
+    // ライブサイトを非表示にしたため、デモアカウントも合わせて非表示にしています。
+    // リンクを復活させるときは、下のブロックのコメントも外してください。
+    // demo: {
+    //   note: '誰でも新規登録もできます。デモデータは変更・リセットされることがあります。',
+    //   accounts: [{ label: 'デモユーザー', id: 'tanaka', password: 'tamemon-demo-2026' }],
+    // },
     accent: 'from-amber-400 to-emerald-500',
     images: [
       '/shots/tamemon-1.webp',
