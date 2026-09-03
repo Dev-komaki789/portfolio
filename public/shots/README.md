@@ -9,6 +9,7 @@
 | --- | --- |
 | 倉庫管理システム (WMS) | `wms-1.png` 〜 `wms-4.png` |
 | EC サイト | `ec-1.png` 〜 `ec-3.png` |
+| おぼえがき（会話記録アプリ） | `obk-1.webp` 〜 `obk-5.webp`（1・2 はタブレット、3〜5 はスマホ） |
 | 貯めモン（家計簿アプリ） | `tamemon-1.webp` 〜 `tamemon-6.webp`（横長 16:9 推奨） |
 | 4択クイズアプリ | `quiz-1.png` `quiz-2.png` |
 

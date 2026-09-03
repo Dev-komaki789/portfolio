@@ -20,11 +20,12 @@ export const aboutSite =
 // 「About me」セクション。リンクは好きなだけ追加できます。
 export const aboutMe = {
   text:
-    '大学卒業後、倉庫管理システムを扱う会社で SQL プログラマーとして5年半勤務し、業務データの抽出・加工やバッチ処理など、データベースを中心とした開発を担当しました。その後は別の業種で経験を積みましたが、「もう一度システムを作る側に戻りたい」という思いが強くなり、現在は Web アプリ開発の職業訓練校に通いながら、自宅でも開発を続けて学習しています。\n\nこれまでに3つの Web アプリケーションを個人で開発し、AWS・Render 上に本番公開しました。テーブル設計・API 設計・認証・トランザクション処理といったバックエンドの設計は、生成 AI と壁打ちしながら選択肢を整理し、最終的な判断は自分で行っています。現在は職業訓練校の卒業制作として、接客業向けの会話記録アプリを設計・開発しています。',
+    '大学卒業後、倉庫管理システムを扱う会社で SQL プログラマーとして5年半勤務し、業務データの抽出・加工やバッチ処理など、データベースを中心とした開発を担当しました。その後は別の業種で経験を積みましたが、「もう一度システムを作る側に戻りたい」という思いが強くなり、現在は Web アプリ開発の職業訓練校に通いながら、自宅でも開発を続けて学習しています。\n\nこれまでに4つの Web アプリケーションを個人で開発し、AWS・Render・Vercel 上に本番公開しました。テーブル設計・API 設計・認証・トランザクション処理といったバックエンドの設計は、生成 AI と壁打ちしながら選択肢を整理し、最終的な判断は自分で行っています。職業訓練校の卒業制作では、接客業向けの会話記録アプリ「おぼえがき」を、設計から実装・本番公開まで一人で仕上げました。',
   links: [
     { label: 'GitHub', href: 'https://github.com/Dev-komaki789' },
     { label: 'WMS（本番サイト）', href: 'https://komaki-wms.com' },
     { label: 'EC サイト（本番）', href: 'https://ec.komaki-wms.com' },
+    { label: 'おぼえがき（本番サイト）', href: 'https://oboegaki-app-omega.vercel.app' },
   ],
 }
 
@@ -69,8 +70,10 @@ export const skillTiers: SkillTier[] = [
       'gunicorn',
       'Docker',
       'React',
+      'Next.js',
       'TypeScript',
       'Tailwind CSS',
+      'Supabase',
     ],
   },
 ]
@@ -95,6 +98,8 @@ export const skillIcons: Record<string, string> = {
   TypeScript: 'typescript/typescript-original',
   'Tailwind CSS': 'tailwindcss/tailwindcss-original',
   Docker: 'docker/docker-original',
+  'Next.js': 'nextjs/nextjs-original',
+  Supabase: 'supabase/supabase-original',
 }
 
 // ===== Interests（その他の活動・趣味） =====
@@ -186,19 +191,21 @@ export const projects: Project[] = [
   },
   {
     title: 'おぼえがき（会話記録アプリ）',
-    subtitle: '職業訓練校の卒業制作 / 個人開発（現在開発中）',
-    status: '開発中',
+    subtitle: '職業訓練校の卒業制作 / Next.js + Supabase(PostgreSQL)',
     description:
-      '接客業・営業職の方が、繰り返し会う相手との会話を記録し、次に会う直前に「何を話すか」を判断できるアプリ。既存の人メモアプリがすべて自由記述である点に対し、話題を構造化データとして持つ設計にしました。これにより、盛り上がりの点数化と、話題ごとの可視化（バブル表示）を可能にしています。',
+      '接客業・営業職の方が、繰り返し会う相手との会話を記録し、次に会う直前に「何を話すか」を判断できるアプリ。既存の人メモアプリがすべて自由記述である点に対し、話題を構造化データとして持つ設計にしました。これにより、盛り上がりの点数化と、話題ごとの可視化（バブル表示）を可能にしています。スマホ・タブレットの両方に対応し、PWA としてホーム画面から起動できます。',
     highlights: [
-      '8 テーブルのデータ設計と、盛り上がりスコアの算出方式を設計書にまとめてから着手',
-      '集計処理とスコア算出は API 側に実装し、SQL は自分で設計',
-      '話題を「大枠」、キーワードを「具体」とする2層構造で、同じ話題の重複を判定できるように',
-      'スコアは時間減衰を入れ、古い盛り上がりが残り続けないよう算出方式を検証',
-      '競合3アプリを調査し、自由記述ではなく構造化データで持つ方針を決定',
+      '8 テーブルのデータ設計と、盛り上がりスコアの算出方式を設計書にまとめてから実装（画面 11 本）',
+      '話題を「大枠」、キーワードを「具体」とする2層構造にし、同じ話題の記録を1つのバブルへ集約',
+      'スコアは EMA（来店間隔で重みを変える）＋ 時間減衰で算出。Python の参照実装と TypeScript 実装を突き合わせるチェックスクリプトを書き、7ケースで一致を確認',
+      'ユーザーごとのデータ分離は Supabase の RLS（行レベルセキュリティ）で DB 側に寄せ、アプリ側の絞り込み漏れによる情報漏洩を防止（別ユーザーからは 0 件になることを実測）',
+      'バブル表示は d3-force で座標だけを計算し、描画は React の SVG で自前実装',
+      '状態管理・UI キット・フォームライブラリを入れず、Next.js / React の標準機能だけで構築',
+      '競合3アプリと美容室向けシステム 26 種を調査し、自由記述ではなく構造化データで持つ方針を決定',
     ],
-    tech: ['TypeScript', 'Next.js', 'PostgreSQL', 'PWA'],
-    imageNote: '画像は実装前のモックアップです（タブレット3枚・スマホ4枚）。',
+    tech: ['Next.js', 'React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'PWA'],
+    liveUrl: 'https://oboegaki-app-omega.vercel.app',
+    repoUrl: 'https://github.com/Dev-komaki789/oboegaki-app',
     portraitImages: true,
     accent: 'from-sky-500 to-indigo-500',
     images: [
@@ -207,8 +214,6 @@ export const projects: Project[] = [
       '/shots/obk-3.webp',
       '/shots/obk-4.webp',
       '/shots/obk-5.webp',
-      '/shots/obk-6.webp',
-      '/shots/obk-7.webp',
     ],
   },
   {
