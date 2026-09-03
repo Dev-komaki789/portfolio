@@ -214,6 +214,7 @@ export const projects: Project[] = [
       '/shots/obk-3.webp',
       '/shots/obk-4.webp',
       '/shots/obk-5.webp',
+      '/shots/obk-6.webp',
     ],
   },
   {
