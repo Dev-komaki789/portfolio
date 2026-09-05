@@ -206,6 +206,10 @@ export const projects: Project[] = [
     tech: ['Next.js', 'React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'PWA'],
     liveUrl: 'https://oboegaki-app-omega.vercel.app',
     repoUrl: 'https://github.com/Dev-komaki789/oboegaki-app',
+    demo: {
+      note: 'デモ用のアカウントです。データは変更・リセットされることがあります。',
+      accounts: [{ label: 'デモユーザー', id: 'demokomaki@gmail.com', password: 'demo123' }],
+    },
     portraitImages: true,
     accent: 'from-sky-500 to-indigo-500',
     images: [
